@@ -15,7 +15,7 @@ with open("README.md", "r", encoding="utf8") as f:
 setuptools.setup(
     name="pyptax",
     version=version,
-    description="A Python library to retrieve information of PTAX rates",
+    description="A Python library to retrieve information on Ptax rates",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="ptax",

@@ -1,10 +1,8 @@
-import requests
-
-SERVICE_URL = "https://olinda.bcb.gov.br/olinda/service/PTAX/version/v1/odata/"
-RESOURCE = "DollarRateDate(dataCotacao=@dataCotacao)"
+from .client import Ptax
+from .resources import CloseResource
 
 
-def close(date: str) -> dict:
+def close(date: str) -> object:
     """
     Retrieve closing Ptax rates on a certain date.
 
@@ -15,20 +13,23 @@ def close(date: str) -> dict:
 
     Returns
     -------
-    dict
-        The closing rates data
+    object
+        A CloseReport object with datetime, bid and ask attributes
 
     Examples
     --------
-    >>> close('01-16-2020')
-    {'datetime': '2020-01-17 13:09:30.096', 'bid': '4.1831', 'ask': '4.1837'}
+    >>> close_report = close('01-20-2020')
+    >>> close_report
+    CloseReport(datetime=2020-01-20 13:09:02.871, bid=4.1823, ask=4.1829)
+    >>> print(close_report)
+    2020-01-20 13:09:02.871 - bid: 4.1823 - ask: 4.1829
+    >>> close_report.bid
+    4.1823
+    >>> close_report.ask
+    4.1829
+    >>> close_report.as_dict
+    {'datetime': '2020-01-20 13:09:02.871', 'bid': '4.1823', 'ask': '4.1829'}
 
     """
-    params = f"@dataCotacao={date!r}&$format=json"
-    response = requests.get(f"{SERVICE_URL}{RESOURCE}", params=params)
-    raw_data = response.json()["value"][0]
-    return {
-        "datetime": raw_data["dataHoraCotacao"],
-        "bid": f'{raw_data["cotacaoCompra"]:.4f}',
-        "ask": f'{raw_data["cotacaoVenda"]:.4f}',
-    }
+    resource = CloseResource(date)
+    return Ptax(resource).response()

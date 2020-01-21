@@ -20,11 +20,15 @@ $ pip install pyptax
 ```python
 >>> from pyptax import ptax
 
->>> close = ptax.close('01-17-2020')
->>> print(close)
-{
-    'datetime': '2020-01-17 13:09:30.096',
-    'bid': '4.1831',
-    'ask': '4.1837',
-}
+>>> close_report = ptax.close('01-20-2020')
+>>> close_report.as_dict
+{'datetime': '2020-01-20 13:09:02.871', 'bid': '4.1823', 'ask': '4.1829'}
+>>> close_report.datetime
+'2020-01-20 13:09:02.871'
+>>> close_report.bid
+'4.1823'
+>>> close_report.ask
+'4.1829'
+>>> print(close_report)
+'2020-01-20 13:09:02.871 - bid: 4.1823 - ask: 4.1829'
 ```

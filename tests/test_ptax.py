@@ -1,6 +1,8 @@
 import responses
 
 from pyptax import ptax
+from pyptax import settings
+from pyptax.models import CloseReport
 
 
 @responses.activate
@@ -9,7 +11,7 @@ def test_close():
 
     responses.add(
         responses.GET,
-        f"{ptax.SERVICE_URL}{ptax.RESOURCE}?@dataCotacao={date!r}&$format=json",
+        f"{settings.SERVICE_URL}{settings.CLOSE_RESOURCE}?@dataCotacao={date!r}&$format=json",
         json={
             "value": [
                 {
@@ -23,11 +25,5 @@ def test_close():
 
     close = ptax.close(date)
 
-    expected = {
-        "datetime": "2020-01-16 13:04:37.351",
-        "bid": "4.1720",
-        "ask": "4.1726",
-    }
-
     assert len(responses.calls) == 1
-    assert close == expected
+    assert isinstance(close, CloseReport)
