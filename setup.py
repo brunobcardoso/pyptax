@@ -11,6 +11,17 @@ with open("pyptax/__init__.py", encoding="utf8") as f:
 with open("README.md", "r", encoding="utf8") as f:
     long_description = f.read()
 
+documentation_deps = [
+    "sphinx",
+    "sphinx_rtd_theme",
+]
+
+testing_deps = [
+    "coverage",
+    "pytest",
+    "pytest-cov",
+    "responses",
+]
 
 setuptools.setup(
     name="pyptax",
@@ -26,14 +37,9 @@ setuptools.setup(
     packages=["pyptax"],
     install_requires=["requests >= 2.0"],
     extras_require={
-        "dev": [
-            "coverage",
-            "pytest",
-            "pytest-cov",
-            "responses",
-            "sphinx",
-            "sphinx-rtd-theme",
-        ]
+        "docs": documentation_deps,
+        "testing": testing_deps,
+        "dev": documentation_deps + testing_deps,
     },
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
