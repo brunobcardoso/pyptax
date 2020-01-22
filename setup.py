@@ -25,7 +25,16 @@ setuptools.setup(
     license="MIT",
     packages=["pyptax"],
     install_requires=["requests >= 2.0"],
-    extras_require={"dev": ["coverage", "pytest", "pytest-cov", "responses",]},
+    extras_require={
+        "dev": [
+            "coverage",
+            "pytest",
+            "pytest-cov",
+            "responses",
+            "sphinx",
+            "sphinx-rtd-theme",
+        ]
+    },
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
