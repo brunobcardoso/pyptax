@@ -40,6 +40,7 @@ setuptools.setup(
         "testing": testing_deps,
         "dev": documentation_deps + testing_deps,
     },
+    python_requires=">=3.7",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",

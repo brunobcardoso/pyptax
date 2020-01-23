@@ -12,11 +12,11 @@ PyPtax is a Python library to retrieve information on Ptax Rates.
    :maxdepth: 2
    :caption: Contents:
 
-   introduction
+   installation
    quickstart
    api
+   contributing
    changelog
-
 
 Indices and tables
 ==================
