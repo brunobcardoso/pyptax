@@ -17,7 +17,6 @@ documentation_deps = [
 ]
 
 testing_deps = [
-    "coverage",
     "pytest",
     "pytest-cov",
     "responses",

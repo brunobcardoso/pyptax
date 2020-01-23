@@ -1,0 +1,22 @@
+language: python
+
+matrix:
+    include:
+        -   env: TOXENV=py37
+            python: 3.7
+            after_success: codecov
+        -   env: TOXENV=py38
+            python: 3.8
+            after_success: codecov
+        -   env: TOXENV=pre-commit
+            python: 3.8
+
+install:
+  - pip install tox codecov
+
+script: tox
+
+cache:
+    directories:
+        - $HOME/.cache/pip
+        - $HOME/.cache/pre-commit
