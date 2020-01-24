@@ -1,3 +1,4 @@
+from .helpers import DateParser
 from .models import CloseReport
 from pyptax import settings
 
@@ -6,7 +7,7 @@ class CloseResource:
     path = settings.CLOSE_RESOURCE
 
     def __init__(self, date):
-        self.date = date
+        self.date = DateParser(date).parse()
 
     @property
     def params(self):

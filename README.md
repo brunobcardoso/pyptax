@@ -49,8 +49,7 @@ $ pip install pyptax
 
 ```python
 >>> from pyptax import ptax
-
->>> close_report = ptax.close('01-20-2020')
+>>> close_report = ptax.close('2020-01-20')
 >>> close_report.as_dict
 {'datetime': '2020-01-20 13:09:02.871', 'bid': '4.1823', 'ask': '4.1829'}
 >>> close_report.datetime

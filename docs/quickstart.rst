@@ -5,9 +5,10 @@ Closing Ptax rates for a requested date
 ---------------------------------------
 
 As a simple example, we'll request closing information on Ptax rates on January 20, 2020.
+We have to inform the date in the format YYYY-MM-DD.
 
     >>> from pyptax import ptax
-    >>> close_report = ptax.close('01-20-2020')
+    >>> close_report = ptax.close('2020-01-20')
     >>> close_report
     CloseReport(datetime='2020-01-20 13:09:02.871', bid='4.1823', ask='4.1829')
 
