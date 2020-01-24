@@ -2,9 +2,15 @@
 Release Notes
 =============
 
+Version 0.3.0
+=============
+- ``ptax.close`` requires date in the format YYYY-MM-DD
+- Requires Python 3.7 or later
+- Add documentation to readthedocs https://pyptax.readthedocs.io/.
+
 Version 0.2.0
 =============
--   ``ptax.close`` returns an instance of the `CloseReport`` model instead of a dict.
+-   ``ptax.close`` returns an instance of the ``CloseReport`` model instead of a dict.
 
 Before:
 
