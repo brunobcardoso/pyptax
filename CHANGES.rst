@@ -2,6 +2,16 @@
 Release Notes
 =============
 
+Version 0.4.0
+=============
+- Add Command line interface.
+- Improve exceptions handling.
+
+  - Add ``ClientException`` to deal with response error.
+  - Add ``UnavailableDataError`` to handle empty data returned.
+
+- Add ``Close.display`` method to show data as a fixed width table for pretty printing.
+
 Version 0.3.0
 =============
 - ``ptax.close`` requires date in the format YYYY-MM-DD
