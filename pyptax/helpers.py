@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pyptax.exceptions import DateFormatException
+from pyptax.exceptions import DateFormatError
 
 
 class DateParser:
@@ -12,7 +12,7 @@ class DateParser:
         try:
             return datetime.strptime(self.date, "%Y-%m-%d")
         except ValueError:
-            raise DateFormatException(
+            raise DateFormatError(
                 f"{self.date!r} does not match the required format YYYY-MM-DD"
             )
 

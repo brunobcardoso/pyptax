@@ -21,3 +21,14 @@ def test_close_report_as_dict(close_report):
         "ask": "4.3574",
     }
     assert close_report.as_dict == expected
+
+
+def test_close_report_display(close_report):
+    expected = (
+        "+----------+------------------+\n"
+        "| datetime | 2019-01-25 12:21 |\n"
+        "| bid      | 4.3565           |\n"
+        "| ask      | 4.3574           |\n"
+        "+----------+------------------+"
+    )
+    assert close_report.display() == expected

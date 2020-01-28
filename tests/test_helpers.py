@@ -1,6 +1,6 @@
 import pytest
 
-from pyptax.helpers import DateFormatException
+from pyptax.helpers import DateFormatError
 from pyptax.helpers import DateParser
 
 
@@ -11,7 +11,7 @@ def test_date_parser_parse_dafault():
 @pytest.mark.parametrize("date", ("02/01/2020", "02-01-2020"))
 def test_date_parser_parse_error(date):
     with pytest.raises(
-        DateFormatException, match=r". does not match the required format YYYY-MM-DD"
+        DateFormatError, match=r". does not match the required format YYYY-MM-DD"
     ):
         DateParser(date).parse()
 

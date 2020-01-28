@@ -14,12 +14,12 @@ def close(date: str) -> CloseReport:
 
     Returns
     -------
-    object
+    CloseReport
         A CloseReport object with datetime, bid and ask attributes
 
     Raises
     ------
-    DateFormatException
+    DateFormatError
         If fails to parse the informed date
 
     Examples

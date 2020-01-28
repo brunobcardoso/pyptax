@@ -2,7 +2,7 @@
   PyPtax
 </h1>
 
-<h4 align="center">PyPtax is a Python library to retrieve information on <i><a href="#what-is-ptax">Ptax rates</a></i></h4>
+<h4 align="center">PyPtax is a Python library and CLI to retrieve information on <i><a href="#what-is-ptax">Ptax rates</a></i></h4>
 
 <p align="center">
   <a href="https://pypi.python.org/pypi/pyptax">
@@ -43,11 +43,19 @@ published by the [Central Bank of Brazil](https://www.bcb.gov.br/en).
 $ pip install pyptax
 ```
 
-## Usage
+## Quickstart
 
 ### Get closing rates on a certain date
 
-```python
+#### Command line:
+
+```bash
+$ pyptax close --date 2020-01-20
+```
+
+#### Module:
+
+```
 >>> from pyptax import ptax
 >>> close_report = ptax.close('2020-01-20')
 >>> close_report.as_dict
@@ -58,6 +66,12 @@ $ pip install pyptax
 '4.1823'
 >>> close_report.ask
 '4.1829'
+>>> print(close_report.display())
++----------+-------------------------+
+| datetime | 2020-01-20 13:09:02.871 |
+| bid      | 4.1823                  |
+| ask      | 4.1829                  |
++----------+-------------------------+
 ```
 
 ## Documentation

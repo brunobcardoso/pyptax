@@ -1,4 +1,10 @@
-class DateFormatException(Exception):
-    """Exception raised when fails to parse the informed date."""
+class ClientError(Exception):
+    pass
 
+
+class DateFormatError(Exception):
+    pass
+
+
+class UnavailableDataError(Exception):
     pass

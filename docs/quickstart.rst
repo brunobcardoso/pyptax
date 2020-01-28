@@ -25,3 +25,12 @@ It's also possible to process the information as a dictionary:
 
     >>> close_report.as_dict
     {'datetime': '2020-01-20 13:09:02.871', 'bid': '4.1823', 'ask': '4.1829'}
+
+Or as a fixed width table for pretty printing:
+
+    >>> print(close_report.display())
+    +----------+-------------------------+
+    | datetime | 2020-01-20 13:09:02.871 |
+    | bid      | 4.1823                  |
+    | ask      | 4.1829                  |
+    +----------+-------------------------+

@@ -34,7 +34,8 @@ setuptools.setup(
     url="https://github.com/brunobcardoso/pyptax",
     license="MIT",
     packages=["pyptax"],
-    install_requires=["requests >= 2.0"],
+    entry_points={"console_scripts": ["pyptax=pyptax.cli:cli"],},
+    install_requires=["requests >= 2.0", "tabulate", "click",],
     extras_require={
         "docs": documentation_deps,
         "testing": testing_deps,

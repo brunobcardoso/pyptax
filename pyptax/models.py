@@ -1,3 +1,8 @@
+from typing import Optional
+
+from tabulate import tabulate
+
+
 class CloseReport:
     def __init__(self, datetime, bid, ask):
         self.datetime = datetime
@@ -13,3 +18,6 @@ class CloseReport:
     @property
     def as_dict(self):
         return self.__dict__
+
+    def display(self, fmt: Optional[str] = "psql") -> str:
+        return tabulate(map(list, self.as_dict.items()), tablefmt=fmt)
