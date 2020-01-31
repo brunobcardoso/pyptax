@@ -33,7 +33,7 @@ def test_close(mock_close, cli_runner):
 
     result = cli_runner.invoke(cli, ["close", "--date", date])
 
-    mock_close.assert_called_once_with("2020-01-20")
+    mock_close.assert_called_once_with(date)
     assert result.exit_code == 0
 
 
@@ -45,6 +45,35 @@ def test_close_error(mock_close, cli_runner):
 
     result = cli_runner.invoke(cli, ["close", "--date", date])
 
-    mock_close.assert_called_once_with("2020-01-20")
+    mock_close.assert_called_once_with(date)
+    assert expected in result.output
+    assert result.exit_code == 0
+
+
+@mock.patch("pyptax.ptax.historical", autospec=True)
+def test_historical(mock_historical, cli_runner):
+    start_date = "2020-01-01"
+    end_date = "2020-01-03"
+
+    result = cli_runner.invoke(
+        cli, ["historical", "--start_date", start_date, "--end_date", end_date]
+    )
+
+    mock_historical.assert_called_once_with(start_date, end_date)
+    assert result.exit_code == 0
+
+
+@mock.patch("pyptax.ptax.historical", autospec=True)
+def test_historical_error(mock_historical, cli_runner):
+    start_date = "2020-01-01"
+    end_date = "2020-01-03"
+    expected = "Test Error"
+    mock_historical.side_effect = ClientError(expected)
+
+    result = cli_runner.invoke(
+        cli, ["historical", "--start_date", start_date, "--end_date", end_date]
+    )
+
+    mock_historical.assert_called_once_with(start_date, end_date)
     assert expected in result.output
     assert result.exit_code == 0

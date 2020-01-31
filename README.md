@@ -26,8 +26,9 @@
 </p>
 
 <p align="center">
+  <a href="#features">Features</a> |
   <a href="#installation">Installation</a> |
-  <a href="#usage">Usage</a> |
+  <a href="#quickstart">Quickstart</a> |
   <a href="#documentation">Documentation</a> |
   <a href="#contributing">Contributing</a>
 </p>
@@ -38,6 +39,10 @@
 is the reference exchange rate for U.S. Dollar, expressed as the amount of Brazilian Reais per one U.S. Dollar,
 published by the [Central Bank of Brazil](https://www.bcb.gov.br/en).
 
+## Features
+ - Closing Ptax rates for a requested date
+ - Historical Ptax rates for a requested period
+
 ## Installation
 ```bash
 $ pip install pyptax
@@ -45,34 +50,66 @@ $ pip install pyptax
 
 ## Quickstart
 
-### Get closing rates on a certain date
+### Closing Ptax rates for a requested date
 
-#### Command line:
+**Command line:**
 
 ```bash
 $ pyptax close --date 2020-01-20
 ```
 
-#### Module:
+**Module:**
 
 ```
 >>> from pyptax import ptax
 >>> close_report = ptax.close('2020-01-20')
 >>> close_report.as_dict
-{'datetime': '2020-01-20 13:09:02.871', 'bid': '4.1823', 'ask': '4.1829'}
+{'datetime': '2020-01-20 13:09:02.871', 'bid': 4.1823, 'ask': 4.1829}
 >>> close_report.datetime
 '2020-01-20 13:09:02.871'
 >>> close_report.bid
-'4.1823'
+4.1823
 >>> close_report.ask
-'4.1829'
->>> print(close_report.display())
-+----------+-------------------------+
-| datetime | 2020-01-20 13:09:02.871 |
-| bid      | 4.1823                  |
-| ask      | 4.1829                  |
-+----------+-------------------------+
+4.1829
 ```
+
+### Historical Ptax rates for a requested period
+
+**Command line:**
+
+```bash
+$ pyptax historical --start_date 2020-01-01 --end_date 2020-01-05
+```
+
+**Module:**
+
+```
+>>> from pyptax import ptax
+>>> historical_report = ptax.historical('2020-01-01', '2020-01-05')
+>>> historical_report
+HistoricalReport(
+    start_date="2020-01-01",
+    end_date="2020-01-03",
+    reports=[
+        CloseReport("2020-01-02 13:11:10.762", 4.0207, 4.0213),
+        CloseReport("2020-01-03 13:06:22.606", 4.0516, 4.0522),
+    ],
+)
+
+>>> historical_report.as_dict
+{
+    "start_date": "2020-01-01",
+    "end_date": "2020-01-03",
+    "reports": [
+        {"datetime": "2020-01-02 13:11:10.762", "bid": 4.0207, "ask": 4.0213},
+        {"datetime": "2020-01-03 13:06:22.606", "bid": 4.0516, "ask": 4.0522},
+    ],
+}
+```
+
+:::warning
+:warning: Enter all dates in the format **YYYY-MM-DD**
+:::
 
 ## Documentation
 

@@ -10,6 +10,8 @@ matrix:
             after_success: codecov
         -   env: TOXENV=pre-commit
             python: 3.8
+        -   env: TOXENV=docs
+            python: 3.8
 
 install:
   - pip install tox codecov

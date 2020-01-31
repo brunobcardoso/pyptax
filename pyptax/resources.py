@@ -1,5 +1,6 @@
 from .helpers import DateParser
 from .models import CloseReport
+from .models import HistoricalReport
 from pyptax import settings
 from pyptax.exceptions import UnavailableDataError
 
@@ -23,6 +24,38 @@ class CloseResource:
                 f"Unavailable rates for the requested date:{self.date!r}"
             )
         datetime = data["dataHoraCotacao"]
-        bid = f"{data['cotacaoCompra']:.4f}"
-        ask = f"{data['cotacaoVenda']:.4f}"
+        bid = data["cotacaoCompra"]
+        ask = data["cotacaoVenda"]
         return CloseReport(datetime, bid, ask)
+
+
+class HistoricalResource:
+    path = settings.HISTORICAL_RESOURCE
+
+    def __init__(self, start_date, end_date):
+        self.start_date = start_date
+        self.end_date = end_date
+        self.parsed_start = DateParser(start_date).parse()
+        self.parsed_end = DateParser(end_date).parse()
+
+    @property
+    def params(self):
+        return f"@dataInicial={self.parsed_start!r}&@dataFinalCotacao={self.parsed_end!r}&$format=json"
+
+    def parse(self, raw_data):
+        reports_list = raw_data["value"]
+        if not reports_list:
+            raise UnavailableDataError(
+                f"Unavailable rates for the requested range: {self.start_date!r} - {self.end_date!r}"
+            )
+
+        close_reports = [
+            CloseReport(
+                report["dataHoraCotacao"],
+                report["cotacaoCompra"],
+                report["cotacaoVenda"],
+            )
+            for report in reports_list
+        ]
+
+        return HistoricalReport(self.start_date, self.end_date, close_reports)

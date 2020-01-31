@@ -25,9 +25,9 @@ LOGO_CLI = (
 @click.pass_context
 def cli(ctx, version):
     """
-        PyPtax Command Line Interface
+    PyPtax Command Line Interface.
 
-        PyPtax is a Python library to retrieve information on Ptax rates.
+    PyPtax is a Python library to retrieve information on Ptax rates.
     """
     if not ctx.invoked_subcommand and version:
         click.secho(pyptax.__version__)
@@ -42,10 +42,21 @@ def cli(ctx, version):
 @cli.command("close")
 @click.option("--date", "-d", required=True, type=str)
 def close(date):
-    """
-        Provides bid and ask rates for the requested date.
-    """
+    """Provide bid and ask rates for the requested date."""
     try:
         click.secho(str(pyptax.ptax.close(date).display()), fg="green")
+    except (ClientError, DateFormatError, UnavailableDataError) as exc:
+        click.secho(str(exc), fg="red")
+
+
+@cli.command("historical")
+@click.option("--start_date", "-sd", required=True, type=str)
+@click.option("--end_date", "-ed", required=True, type=str)
+def historical(start_date, end_date):
+    """Provide bid and ask rates for the requested time period."""
+    try:
+        click.secho(
+            str(pyptax.ptax.historical(start_date, end_date).display()), fg="green"
+        )
     except (ClientError, DateFormatError, UnavailableDataError) as exc:
         click.secho(str(exc), fg="red")
