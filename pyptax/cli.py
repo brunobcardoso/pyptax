@@ -1,9 +1,7 @@
 import click
 
 import pyptax
-from pyptax.exceptions import ClientError
-from pyptax.exceptions import DateFormatError
-from pyptax.exceptions import UnavailableDataError
+from pyptax.exceptions import ClientError, DateFormatError, UnavailableDataError
 
 LOGO_CLI = (
     " /$$$$$$$            /$$$$$$$    /$$\n"
@@ -58,5 +56,15 @@ def historical(start_date, end_date):
         click.secho(
             str(pyptax.ptax.historical(start_date, end_date).display()), fg="green"
         )
+    except (ClientError, DateFormatError, UnavailableDataError) as exc:
+        click.secho(str(exc), fg="red")
+
+
+@cli.command("intermediary")
+@click.option("--date", "-d", required=True, type=str)
+def intermediary(date):
+    """Provide intermediary bulletins of ptax rates for the requested date."""
+    try:
+        click.secho(str(pyptax.ptax.intermediary(date).display()), fg="green")
     except (ClientError, DateFormatError, UnavailableDataError) as exc:
         click.secho(str(exc), fg="red")

@@ -1,35 +1,43 @@
-from dataclasses import asdict
-from dataclasses import dataclass
-from typing import List
-from typing import Optional
+from dataclasses import asdict, dataclass
+from typing import List, Optional
 
 from tabulate import tabulate
 
 
-@dataclass
-class CloseReport:
-    datetime: str
-    bid: float
-    ask: float
+class BaseBulletin:
+    bulletins = None
 
     @property
     def as_dict(self):
         return asdict(self)
+
+    def display(self, fmt: Optional[str] = "psql") -> str:
+        rows = (
+            (bulletin.datetime, bulletin.bid, bulletin.ask, bulletin.bulletin_type)
+            for bulletin in self.bulletins
+        )
+        return tabulate(rows, headers=self.bulletins[0].as_dict.keys(), tablefmt=fmt)
+
+
+@dataclass
+class Bulletin(BaseBulletin):
+    datetime: str
+    bid: float
+    ask: float
+    bulletin_type: str
 
     def display(self, fmt: Optional[str] = "psql") -> str:
         return tabulate(self.as_dict.items(), tablefmt=fmt)
 
 
 @dataclass
-class HistoricalReport:
+class HistoricalBulletin(BaseBulletin):
     start_date: str
     end_date: str
-    reports: List[CloseReport]
+    bulletins: List[Bulletin]
 
-    @property
-    def as_dict(self):
-        return asdict(self)
 
-    def display(self, fmt: Optional[str] = "psql") -> str:
-        rows = ((report.datetime, report.bid, report.ask) for report in self.reports)
-        return tabulate(rows, headers=self.reports[0].as_dict.keys(), tablefmt=fmt)
+@dataclass
+class IntermediaryBulletin(BaseBulletin):
+    date: str
+    bulletins: List[Bulletin]

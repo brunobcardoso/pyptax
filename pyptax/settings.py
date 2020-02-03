@@ -5,3 +5,5 @@ CLOSE_RESOURCE = "DollarRateDate(dataCotacao=@dataCotacao)"
 HISTORICAL_RESOURCE = (
     "DollarRatePeriod(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)"
 )
+
+INTERMEDIARY_RESOURCE = "ExchangeRateDate(moeda=@moeda,dataCotacao=@dataCotacao)"

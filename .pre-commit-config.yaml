@@ -18,11 +18,11 @@ repos:
       args: ["--ignore=E203,E231,E501,W503"]
     - id: no-commit-to-branch
     - id: trailing-whitespace
--   repo: https://github.com/asottile/reorder_python_imports
-    rev: v1.8.0
+-   repo: https://github.com/pre-commit/mirrors-isort
+    rev: v4.3.21
     hooks:
-    - id: reorder-python-imports
-      language_version: python3
+    - id: isort
+      additional_dependencies: ['toml']
 -   repo: https://github.com/psf/black
     rev: stable
     hooks:

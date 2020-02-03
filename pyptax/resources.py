@@ -1,8 +1,7 @@
-from .helpers import DateParser
-from .models import CloseReport
-from .models import HistoricalReport
 from pyptax import settings
 from pyptax.exceptions import UnavailableDataError
+from pyptax.helpers import BulletinTypeParser, DateParser
+from pyptax.models import Bulletin, HistoricalBulletin, IntermediaryBulletin
 
 
 class CloseResource:
@@ -26,7 +25,7 @@ class CloseResource:
         datetime = data["dataHoraCotacao"]
         bid = data["cotacaoCompra"]
         ask = data["cotacaoVenda"]
-        return CloseReport(datetime, bid, ask)
+        return Bulletin(datetime, bid, ask, "close")
 
 
 class HistoricalResource:
@@ -43,19 +42,50 @@ class HistoricalResource:
         return f"@dataInicial={self.parsed_start!r}&@dataFinalCotacao={self.parsed_end!r}&$format=json"
 
     def parse(self, raw_data):
-        reports_list = raw_data["value"]
-        if not reports_list:
+        bulletins_list = raw_data["value"]
+        if not bulletins_list:
             raise UnavailableDataError(
                 f"Unavailable rates for the requested range: {self.start_date!r} - {self.end_date!r}"
             )
 
-        close_reports = [
-            CloseReport(
+        close_bulletins = [
+            Bulletin(
+                bulletin["dataHoraCotacao"],
+                bulletin["cotacaoCompra"],
+                bulletin["cotacaoVenda"],
+                "close",
+            )
+            for bulletin in bulletins_list
+        ]
+
+        return HistoricalBulletin(self.start_date, self.end_date, close_bulletins)
+
+
+class IntermediaryResource:
+    path = settings.INTERMEDIARY_RESOURCE
+
+    def __init__(self, date):
+        self.date = date
+        self.parsed_date = DateParser(date).parse()
+
+    @property
+    def params(self):
+        return f"@moeda='USD'&@dataCotacao={self.parsed_date!r}&$format=json"
+
+    def parse(self, raw_data):
+        bulletin_list = raw_data["value"]
+        if not bulletin_list:
+            raise UnavailableDataError(
+                f"Unavailable rates for the requested date:{self.date!r}"
+            )
+
+        bulletins = [
+            Bulletin(
                 report["dataHoraCotacao"],
                 report["cotacaoCompra"],
                 report["cotacaoVenda"],
+                BulletinTypeParser(report["tipoBoletim"]).parse(),
             )
-            for report in reports_list
+            for report in bulletin_list
         ]
-
-        return HistoricalReport(self.start_date, self.end_date, close_reports)
+        return IntermediaryBulletin(self.date, bulletins)

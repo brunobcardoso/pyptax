@@ -77,3 +77,26 @@ def test_historical_error(mock_historical, cli_runner):
     mock_historical.assert_called_once_with(start_date, end_date)
     assert expected in result.output
     assert result.exit_code == 0
+
+
+@mock.patch("pyptax.ptax.intermediary", autospec=True)
+def test_intermediary(mock_intermediary, cli_runner):
+    date = "2020-01-02"
+
+    result = cli_runner.invoke(cli, ["intermediary", "--date", date])
+
+    mock_intermediary.assert_called_once_with(date)
+    assert result.exit_code == 0
+
+
+@mock.patch("pyptax.ptax.intermediary", autospec=True)
+def test_intermediary_error(mock_intermediary, cli_runner):
+    date = "2020-01-01"
+    expected = "Test Error"
+    mock_intermediary.side_effect = ClientError(expected)
+
+    result = cli_runner.invoke(cli, ["intermediary", "--date", date])
+
+    mock_intermediary.assert_called_once_with(date)
+    assert expected in result.output
+    assert result.exit_code == 0

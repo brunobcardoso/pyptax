@@ -1,13 +1,13 @@
 Installation
 ============
 
-Download and install the latest released version from `PyPI <https://pypi.python.org/pypi/pyptax/>`__:
+Install the latest released version from `PyPI <https://pypi.python.org/pypi/pyptax/>`__:
 
 .. code-block:: bash
 
     $ pip install pyptax
 
-Download and install the development version from GitHub:
+Install the development version from GitHub:
 
 .. code-block:: bash
 

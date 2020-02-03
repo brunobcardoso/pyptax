@@ -1,7 +1,6 @@
 import pytest
 
-from pyptax.helpers import DateFormatError
-from pyptax.helpers import DateParser
+from pyptax.helpers import BulletinTypeParser, DateFormatError, DateParser
 
 
 def test_date_parser_parse_dafault():
@@ -25,3 +24,15 @@ def test_date_parser_parse_error(date):
 )
 def test_date_parser_parse_change_format(date, fmt, expected_result):
     assert DateParser(date).parse(fmt) == expected_result
+
+
+@pytest.mark.parametrize(
+    "bulletin_type, expected_result",
+    (
+        ("Abertura", "open"),
+        ("Intermediário", "intermediary"),
+        ("Fechamento PTAX", "close"),
+    ),
+)
+def test_bulletin_type_parser(bulletin_type, expected_result):
+    assert BulletinTypeParser(bulletin_type).parse() == expected_result

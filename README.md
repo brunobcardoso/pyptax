@@ -42,6 +42,7 @@ published by the [Central Bank of Brazil](https://www.bcb.gov.br/en).
 ## Features
  - Closing Ptax rates for a requested date
  - Historical Ptax rates for a requested period
+ - Intermediary Ptax rates for a requested date
 
 ## Installation
 ```bash
@@ -62,14 +63,20 @@ $ pyptax close --date 2020-01-20
 
 ```
 >>> from pyptax import ptax
->>> close_report = ptax.close('2020-01-20')
->>> close_report.as_dict
-{'datetime': '2020-01-20 13:09:02.871', 'bid': 4.1823, 'ask': 4.1829}
->>> close_report.datetime
-'2020-01-20 13:09:02.871'
->>> close_report.bid
+>>> bulletin = ptax.close("2020-01-20")
+>>> bulletin.as_dict
+{
+    "datetime": "2020-01-20 13:09:02.871",
+    "bid": 4.1823,
+    "ask": 4.1829,
+    "bulletin_type":
+    "close"
+}
+>>> bulletin.datetime
+"2020-01-20 13:09:02.871"
+>>> bulletin.bid
 4.1823
->>> close_report.ask
+>>> bulletin.ask
 4.1829
 ```
 
@@ -85,31 +92,39 @@ $ pyptax historical --start_date 2020-01-01 --end_date 2020-01-05
 
 ```
 >>> from pyptax import ptax
->>> historical_report = ptax.historical('2020-01-01', '2020-01-05')
->>> historical_report
-HistoricalReport(
+>>> historical_bulletin = ptax.historical('2020-01-01', '2020-01-05')
+>>> historical_bulletin
+HistoricalBulletin(
     start_date="2020-01-01",
     end_date="2020-01-03",
-    reports=[
-        CloseReport("2020-01-02 13:11:10.762", 4.0207, 4.0213),
-        CloseReport("2020-01-03 13:06:22.606", 4.0516, 4.0522),
+    bulletins=[
+        Bulletin("2020-01-02 13:11:10.762", 4.0207, 4.0213, "close"),
+        Bulletin("2020-01-03 13:06:22.606", 4.0516, 4.0522, "close"),
     ],
 )
 
->>> historical_report.as_dict
+>>> historical_bulletin.as_dict
 {
     "start_date": "2020-01-01",
     "end_date": "2020-01-03",
-    "reports": [
-        {"datetime": "2020-01-02 13:11:10.762", "bid": 4.0207, "ask": 4.0213},
-        {"datetime": "2020-01-03 13:06:22.606", "bid": 4.0516, "ask": 4.0522},
+    "bulletins": [
+        {
+            "datetime": "2020-01-02 13:11:10.762",
+            "bid": 4.0207,
+            "ask": 4.0213,
+            "bulletin_type": "close"
+        },
+        {
+            "datetime": "2020-01-03 13:06:22.606",
+            "bid": 4.0516,
+            "ask": 4.0522,
+            "bulletin_type": "close"
+        },
     ],
 }
 ```
 
-:::warning
-:warning: Enter all dates in the format **YYYY-MM-DD**
-:::
+> :warning: Enter all dates in the format **_YYYY-MM-DD_**
 
 ## Documentation
 
