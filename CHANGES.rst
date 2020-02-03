@@ -2,6 +2,14 @@
 Release Notes
 =============
 
+Version 0.5.0
+=============
+- Add resource to provide historical bid and ask rates for a requested time period.
+- Add resource to provide intermediary rates for a requested date.
+- Rename `CloseReport` to `Bulletin` and define its type on the internal attribute `bulletin_type`.
+- Remove string conversion on bid and ask rates retrieved.
+- Fix development installation docs.
+
 Version 0.4.0
 =============
 - Add Command line interface.
