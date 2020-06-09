@@ -7,7 +7,7 @@ from pyptax.resources import CloseResource, HistoricalResource, IntermediaryReso
 
 def test_close_resource_params():
     resource = CloseResource("2020-02-01")
-    assert resource.params == f"@dataCotacao='02-01-2020'&$format=json"
+    assert resource.params == "@dataCotacao='02-01-2020'&$format=json"
 
 
 def test_close_resource_parse(close_raw_data):
