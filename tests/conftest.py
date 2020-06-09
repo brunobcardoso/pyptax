@@ -1,6 +1,7 @@
 import pytest
 
-from pyptax.models import Bulletin, HistoricalBulletin
+from pyptax.models import Bulletin
+from pyptax.models import HistoricalBulletin
 
 
 @pytest.fixture

@@ -1,6 +1,8 @@
 import pytest
 
-from pyptax.helpers import BulletinTypeParser, DateFormatError, DateParser
+from pyptax.helpers import BulletinTypeParser
+from pyptax.helpers import DateFormatError
+from pyptax.helpers import DateParser
 
 
 def test_date_parser_parse_dafault():

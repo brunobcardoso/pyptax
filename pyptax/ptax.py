@@ -1,6 +1,9 @@
 from pyptax.client import Ptax
-from pyptax.models import Bulletin, HistoricalBulletin
-from pyptax.resources import CloseResource, HistoricalResource, IntermediaryResource
+from pyptax.models import Bulletin
+from pyptax.models import HistoricalBulletin
+from pyptax.resources import CloseResource
+from pyptax.resources import HistoricalResource
+from pyptax.resources import IntermediaryResource
 
 
 def close(date: str) -> Bulletin:

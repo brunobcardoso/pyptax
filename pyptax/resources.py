@@ -1,7 +1,10 @@
 from pyptax import settings
 from pyptax.exceptions import UnavailableDataError
-from pyptax.helpers import BulletinTypeParser, DateParser
-from pyptax.models import Bulletin, HistoricalBulletin, IntermediaryBulletin
+from pyptax.helpers import BulletinTypeParser
+from pyptax.helpers import DateParser
+from pyptax.models import Bulletin
+from pyptax.models import HistoricalBulletin
+from pyptax.models import IntermediaryBulletin
 
 
 class CloseResource:

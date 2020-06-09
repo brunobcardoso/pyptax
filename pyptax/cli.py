@@ -1,7 +1,9 @@
 import click
 
 import pyptax
-from pyptax.exceptions import ClientError, DateFormatError, UnavailableDataError
+from pyptax.exceptions import ClientError
+from pyptax.exceptions import DateFormatError
+from pyptax.exceptions import UnavailableDataError
 
 LOGO_CLI = (
     " /$$$$$$$            /$$$$$$$    /$$\n"

@@ -1,7 +1,10 @@
 import responses
 
-from pyptax import ptax, settings
-from pyptax.models import Bulletin, HistoricalBulletin, IntermediaryBulletin
+from pyptax import ptax
+from pyptax import settings
+from pyptax.models import Bulletin
+from pyptax.models import HistoricalBulletin
+from pyptax.models import IntermediaryBulletin
 
 
 @responses.activate

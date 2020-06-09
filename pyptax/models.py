@@ -1,5 +1,7 @@
-from dataclasses import asdict, dataclass
-from typing import List, Optional
+from dataclasses import asdict
+from dataclasses import dataclass
+from typing import List
+from typing import Optional
 
 from tabulate import tabulate
 

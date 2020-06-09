@@ -1,8 +1,12 @@
 import pytest
 
 from pyptax.exceptions import UnavailableDataError
-from pyptax.models import Bulletin, HistoricalBulletin, IntermediaryBulletin
-from pyptax.resources import CloseResource, HistoricalResource, IntermediaryResource
+from pyptax.models import Bulletin
+from pyptax.models import HistoricalBulletin
+from pyptax.models import IntermediaryBulletin
+from pyptax.resources import CloseResource
+from pyptax.resources import HistoricalResource
+from pyptax.resources import IntermediaryResource
 
 
 def test_close_resource_params():
