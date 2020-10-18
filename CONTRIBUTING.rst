@@ -8,7 +8,7 @@ Development installation
 ------------------------
 - Fork PyPtax to your GitHub account
 - Clone your fork and create a branch for the code you want to add
-- Create a new virtualenv and install the package in development mode
+- Create a new virtualenv and install the dependencies using `Poetry <https://python-poetry.org/docs/>`_
 
 .. code-block:: bash
 
