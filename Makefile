@@ -1,4 +1,4 @@
-.PHONY: clean clean_build test coverage
+.PHONY: clean clean_build test coverage docs publish_test publish_prod
 
 clean:
 	@find . -name "*.pyc" -delete
@@ -15,12 +15,11 @@ test: clean
 coverage: clean
 	pytest -x --cov=pyptax/ --cov-report=term-missing --cov-report=html:htmlcov
 
-publish_test: clean_build
-	pip install 'twine>=1.5.0'
-	python setup.py sdist bdist_wheel
-	twine upload --repository testpypi dist/*
+docs:
+	sphinx-build docs docs/_build
 
-publish_prod: clean_build
-	pip install 'twine>=1.5.0'
-	python setup.py sdist bdist_wheel
-	twine upload dist/*
+publish_test:
+	poetry publish -r testpypi --build
+
+publish_prod:
+	poetry publish --build
