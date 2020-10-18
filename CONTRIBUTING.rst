@@ -15,10 +15,8 @@ Development installation
     $ git clone git@github.com:your_user_name/pyptax.git
     $ cd pyptax
     $ git checkout -b your_contribution_branch
-    $ python -m venv .venv
-    $ source .venv/bin/activate
-    (.venv) $ python -m pip install -U pip setuptools
-    (.venv) $ pip install -U -e .[dev]
+    $ poetry install
+    $ poetry shell
 
 Testing
 -------

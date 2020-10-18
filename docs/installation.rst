@@ -21,4 +21,4 @@ PyPtax is actively developed on GitHub, where the code is available under the MI
 
     $ git clone https://github.com/brunobcardoso/pyptax.git
     $ cd pyptax
-    $ pip install -e ".[dev]"
+    $ poetry install
