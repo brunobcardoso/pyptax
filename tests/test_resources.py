@@ -7,7 +7,7 @@ from pyptax.resources import CloseResource, HistoricalResource, IntermediaryReso
 
 def test_close_resource_params():
     resource = CloseResource("2020-02-01")
-    assert resource.params == f"@dataCotacao='02-01-2020'&$format=json"
+    assert resource.params == "@dataCotacao='02-01-2020'&$format=json"
 
 
 def test_close_resource_parse(close_raw_data):
@@ -32,8 +32,8 @@ def test_historical_resource_parse(historical_raw_data):
     parsed = resource.parse(historical_raw_data)
     assert isinstance(parsed, HistoricalBulletin)
     assert parsed.bulletins == [
-        Bulletin("2020-01-02 13:11:10.762", 4.0207, 4.0213, "close",),
-        Bulletin("2020-01-03 13:06:22.606", 4.0516, 4.0522, "close",),
+        Bulletin("2020-01-02 13:11:10.762", 4.0207, 4.0213, "close"),
+        Bulletin("2020-01-03 13:06:22.606", 4.0516, 4.0522, "close"),
     ]
 
 
