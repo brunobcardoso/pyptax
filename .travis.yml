@@ -1,24 +1,17 @@
 language: python
-
-matrix:
-    include:
-        -   env: TOXENV=py37
-            python: 3.7
-            after_success: codecov
-        -   env: TOXENV=py38
-            python: 3.8
-            after_success: codecov
-        -   env: TOXENV=pre-commit
-            python: 3.8
-        -   env: TOXENV=docs
-            python: 3.8
-
+python:
+  - "3.7"
+  - "3.8"
+before_install:
+  - pip install poetry
 install:
-  - pip install tox codecov
-
-script: tox
+  - poetry install -v
+  - pip install tox-travis codecov
+script:
+  - tox
+after_success: codecov
 
 cache:
-    directories:
-        - $HOME/.cache/pip
-        - $HOME/.cache/pre-commit
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.cache/pre-commit
